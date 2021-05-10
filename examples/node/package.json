@@ -1,0 +1,10 @@
+{
+  "name": "mnemonic-keys",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "bip39": "^3.0.4"
+  }
+}

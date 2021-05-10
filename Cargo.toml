@@ -1,17 +1,15 @@
 [package]
 name = "deterministic-rsa"
 version = "0.1.0"
-authors = ["Open Koi", "Andre Vallestero"]
+authors = ["Andre Vallestero"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-rand = { version="0.8.3", default-features=false, features=["std_rng"] }
-num-bigint-dig = { version="0.7.0", default-features=false, features=["prime"] }
+rand_chacha = { version="0.3.0", default-features=false }
+rsa = { version="0.4.0", default-features=false, features = [ "alloc" ] }
 
 [profile.release]
 opt-level = 3
