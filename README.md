@@ -36,7 +36,7 @@ strip target/release/*.so
 
 #### Node
 `cp ./target/wasm32-unknown-unknown/release/deterministic_rsa.wasm examples/node`
-`cd examples/node & node .`
+`cd examples/node && node .`
 
 ## TODO
 - free data on heap
