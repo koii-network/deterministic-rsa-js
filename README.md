@@ -33,4 +33,8 @@ Testing
 
 `cargo test --release` or `cargo test --release -- --nocapture`
 
-## Planned goals
+## TODO
+- free data on heap
+- clean up implementation
+- properly document
+- 3rd party audit

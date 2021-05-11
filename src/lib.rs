@@ -6,12 +6,6 @@ use num_bigint_dig::{ToBigInt, ModInverse};
 use simple_asn1::ASN1Block;
 use pem::{ LineEnding, EncodeConfig, Pem, encode_config };
 
-// https://docs.rs/jsonwebkey-convert
-// https://docs.rs/jsonwebkey
-// https://docs.rs/jsonwebtoken
-// https://github.com/nhynes/jwk-rs
-// https://docs.rs/rsa-export/0.3.3/src/rsa_export/lib.rs.html#127
-
 // return A ptr to a [u32; 2]
 //   first u32 is the ptr of output string
 //   second u32 is the size of output string
@@ -47,6 +41,7 @@ mod tests {
     }
 }
 
+// https://docs.rs/rsa-export
 /// Encode an RSA private key with PKCS#1
 fn private_key_pkcs1(key: RSAPrivateKey) -> Vec<u8> {
     let mut data = Vec::new();
