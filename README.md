@@ -35,8 +35,10 @@ strip target/release/*.so
 `cargo test --release` or `cargo test --release -- --nocapture`
 
 #### Node
-`cp ./target/wasm32-unknown-unknown/release/deterministic_rsa.wasm examples/node`
-`cd examples/node && node .`
+```
+cp ./target/wasm32-unknown-unknown/release/deterministic_rsa.wasm examples/node
+cd examples/node && node .
+```
 
 ## TODO
 - free data on heap
