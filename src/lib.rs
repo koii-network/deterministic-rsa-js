@@ -1,18 +1,17 @@
 //#![no_std] // Ideally we use no_std but not possible for now
+#![allow(clippy::missing_safety_doc)]
 
-use rand_chacha::{ ChaCha20Rng, rand_core::SeedableRng };
-use rsa::{PublicKeyParts, RSAPrivateKey};
+use rand_chacha::{ ChaCha8Rng, rand_core::SeedableRng };
+use rsa::{ PublicKeyParts, RSAPrivateKey};
 use num_bigint_dig::{ToBigInt, ModInverse};
 use simple_asn1::ASN1Block;
 use pem::{ LineEnding, EncodeConfig, Pem, encode_config };
 
-// return A ptr to a [u32; 2]
-//   first u32 is the ptr of output string
-//   second u32 is the size of output string
 #[no_mangle]
-pub extern "C" fn gen_keys(bits: usize, seed: &[u8; 32]) -> *const u32 {
-    let mut prng = ChaCha20Rng::from_seed(*seed);
-    let private_key = RSAPrivateKey::new(&mut prng, bits)
+pub unsafe extern "C" fn gen_keys(bits: u32, seed_ptr: *const u8) -> *const u32 {
+    let seed = unsafe { *(seed_ptr as *const [u8; 32]) };
+    let mut prng = ChaCha8Rng::from_seed(seed);
+    let private_key = RSAPrivateKey::new(&mut prng, bits as usize)
         .unwrap();
     let pem_pkcs1_pem = private_key_pkcs1_pem(
             private_key_pkcs1(private_key)
@@ -28,6 +27,14 @@ pub extern "C" fn gen_keys(bits: usize, seed: &[u8; 32]) -> *const u32 {
     info_ptr
 }
 
+#[no_mangle]
+pub extern "C" fn alloc_seed_array() -> *const u8 {
+    let seed_arr = Box::new(Vec::<u8>::with_capacity(64));
+    let seed_arr_ptr = seed_arr.as_ptr();
+    Box::leak(seed_arr);
+    seed_arr_ptr
+}
+
 // TODO:
 //   Create function to free data on heap given the str_info ptr
 
@@ -37,7 +44,8 @@ mod tests {
 
     #[test]
     fn test_gen_keys() {
-        gen_keys(4096, &[0; 32]);
+        let seed_arr_ptr = alloc_seed_array();
+        unsafe { gen_keys(4096, seed_arr_ptr) } ;
     }
 }
 

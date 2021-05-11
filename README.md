@@ -38,3 +38,6 @@ Testing
 - clean up implementation
 - properly document
 - 3rd party audit
+- make strinfo on heap contiguous (u32 for len N, the next N bytes is the data)
+- contribute to RSA crate for multi threaded prng
+- contribute to RSA create for Wasm to use native javascript BigInt
