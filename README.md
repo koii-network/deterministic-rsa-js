@@ -31,10 +31,10 @@ strip target/release/*.so
 
 ### Testing
 
-*Cargo*
+#### Cargo
 `cargo test --release` or `cargo test --release -- --nocapture`
 
-*Node*
+#### Node
 `cp ./target/wasm32-unknown-unknown/release/deterministic_rsa.wasm examples/node`
 `cd examples/node & node .`
 
