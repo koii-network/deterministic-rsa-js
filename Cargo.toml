@@ -9,7 +9,11 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rand_chacha = { version="0.3.0", default-features=false }
-rsa = { version="0.4.0", default-features=false, features = [ "alloc" ] }
+rsa = { version="0.4.0", default-features=false, features=[ "alloc" ] }
+
+num-bigint-dig = { version="0.7.0", default-features=false }
+simple_asn1 = { version="0.5.2", default-features=false }
+pem = { version="0.8.3" }
 
 [profile.release]
 opt-level = 3

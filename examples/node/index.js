@@ -14,14 +14,20 @@ async function main() {
     const wasm_inst = (await loadWasm("deterministic_rsa.wasm")).instance;
 
     console.log("Generating keys");
-    const prime_ptr = wasm_inst.exports.gen_keys(4096, 0);
+    const str_info_ptr = wasm_inst.exports.gen_keys(4096, seed.buffer);
     
-    console.log("Reading output");
+    console.log("Locating output");
     const mem = new Uint8Array(wasm_inst.exports.memory.buffer);
-    const prime_str_bytes = mem.slice(prime_ptr, prime_ptr + 256);
-    const prime_str = new TextDecoder('utf-8').decode(prime_str_bytes);
 
-    console.log(prime_str);
+    const dataView = new DataView(mem.buffer);
+    const str_ptr = dataView.getUint32(str_info_ptr, true);
+    const str_len = dataView.getUint32(str_info_ptr + 4, true);
+
+    console.log("Output found at", str_ptr, "with length", str_len);
+    const key_str_bytes = mem.slice(str_ptr, str_ptr + str_len);
+    const key_str = new TextDecoder('utf-8').decode(key_str_bytes);
+
+    console.log(key_str);
 
     // TODO free string on Wasm heap after reading
 }
