@@ -74,3 +74,4 @@ cd examples/node && node .
 - https://stackoverflow.com/a/27736785/5623318
 - https://math.stackexchange.com/a/3839960/925321
 - https://en.wikipedia.org/wiki/Hensel%27s_lemma
+- https://docs.rs/num-bigint-dig/0.7.0/num_bigint_dig/trait.RandPrime.html
