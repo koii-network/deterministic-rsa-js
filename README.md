@@ -13,6 +13,10 @@ Available on [npm](https://www.npmjs.com/package/deterministic-rsa-js)
 
 The original version of this project used Rust which took ~1.3s to generate a key natively, however when compiled to WASM, it took ~15 seconds. This is a because the WASM implementation used Uint8Array as a shim for large integers which is very slow in JavaScript. In the current implementation, we use JS native BigInts which handles arbitrarily-precise integers at a machine code level. This is where most of the speed up comes from.
 
+### Multithreading
+
+Using [workerpool](https://www.npmjs.com/package/workerpool), we are able to deterministically generate primes in parallel. This results in a 50% speedup on average.
+
 ### Fast random number generation
 
 Use simple 32bit math and bitwise operators. Instead of generating entirely new numbers, simply pick a random bit between `1` and `nBits - 3` then `^= 1n << bitShift` it (lbitshift xor assign). This reduces how many times we need to run the number generation.
