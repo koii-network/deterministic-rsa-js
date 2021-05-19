@@ -1,6 +1,6 @@
 {
   "name": "deterministic-rsa-js",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "description": "Deterministic RSA using vanilla JavaScript",
   "main": "index.js",
   "repository": "https://github.com/open-koi/deterministic-rsa-js.git",

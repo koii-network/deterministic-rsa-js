@@ -5,6 +5,8 @@ Deterministic RSA using vanilla JavaScript
 
 Can be used to generate RSA keys based on mnemonic keys. This functionality is already possible using [node-forge](https://www.npmjs.com/package/node-forge) package however, this project is more than 3 times faster on average making it more suitable for high performance applications or real-time interactive environments.
 
+Available on [npm](https://www.npmjs.com/package/deterministic-rsa-js)
+
 ## How it works
 
 ### Native BigInt, no byte array shims
@@ -23,15 +25,12 @@ When running, we check if the node crypto module is available. If it is, we use 
 
 Preallocate buffers and variables to reduce garbage collection. We also take care to only compare and assign values of the same type in order remove performance cost of type coercion and dynamic memory allocation.
 
-
 ## Testing
 To test the node, run `node test/test.js`
 
 To test in browser, open `test/index.html` with any browser
 
 ## TODO
-- Publish to NPM
-- Try to use Node crypto for the rest of RSA generation
 - Add optimized prime checking implementation
     - In a typical [prime generation algorithm](https://en.wikipedia.org/wiki/Generation_of_primes#Large_primes), prime checking dominates the runtime at more than 90%. This is because large numbers are inherently difficult to check for [primality](https://en.wikipedia.org/wiki/Primality_test) as you would need to rule out all the factors up to the root of the number. Conventional RSA algorithms use [AKS](https://en.wikipedia.org/wiki/AKS_primality_test) for smaller numbers and multiple rounds of [Miller–Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) for larger numbers. Though Miller-Rabin is adequate, we improve on the process by using [QFT](https://en.wikipedia.org/wiki/Quadratic_Frobenius_test), [Baillie-PSW](https://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test), ECM, or SIQS. ECM and SIQS is implemented at [Alpertron integer factorization calculator](https://www.alpertron.com.ar/ECM.HTM).
 
