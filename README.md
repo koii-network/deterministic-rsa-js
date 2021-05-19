@@ -3,7 +3,7 @@
 # deterministic-rsa-js
 Deterministic RSA using vanilla JavaScript
 
-Can be used to generate RSA keys based on mnemonic keys
+Can be used to generate RSA keys based on mnemonic keys. This functionality is already possible using [node-forge](https://www.npmjs.com/package/node-forge) package however, this project is more than 3 times faster on average making it more suitable for high performance applications or real-time interactive environments.
 
 ## How it works
 
