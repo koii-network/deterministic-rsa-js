@@ -13,7 +13,7 @@ The original version of this project used Rust which took ~1.3s to generate a ke
 
 ### Fast random number generation
 
-Use simple 32bit math and bitwise operators. Instead of generating entirely new numbers, simply pick a random bit between `1` and `nBits - 3` then `^= 1n << bitShift` it (bitshift xor assign). In addition, we also save unused random bits for later use. This reduces how many times we need to run the number generation.
+Use simple 32bit math and bitwise operators. Instead of generating entirely new numbers, simply pick a random bit between `1` and `nBits - 3` then `^= 1n << bitShift` it (lbitshift xor assign). This reduces how many times we need to run the number generation.
 
 ### Native Node crypto
 
@@ -33,7 +33,7 @@ To test in browser, open `test/index.html` with any browser
 - Publish to NPM
 - Try to use Node crypto for the rest of RSA generation
 - Add optimized prime checking implementation
-    - In a typical [prime generation algorithm](https://en.wikipedia.org/wiki/Generation_of_primes#Large_primes), prime checking dominates the runtime at more than 90%. This is because large numbers are inherently difficult to check for [primality](https://en.wikipedia.org/wiki/Primality_test) as you would need to rule out all the factors up to the root of the number. Conventional RSA algorithms use [AKS](https://en.wikipedia.org/wiki/AKS_primality_test) for smaller numbers and multiple rounds of [Miller–Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) for larger numbers. Though Miller-Rabin is adequate, we improve on the process by using [QFT](https://en.wikipedia.org/wiki/Quadratic_Frobenius_test) or [Baillie-PSW](https://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test) which is 3 times slower, but only ever requires 1 or 2 rounds with 2048 bits instead of Miller-Rabin's 10-15 rounds.
+    - In a typical [prime generation algorithm](https://en.wikipedia.org/wiki/Generation_of_primes#Large_primes), prime checking dominates the runtime at more than 90%. This is because large numbers are inherently difficult to check for [primality](https://en.wikipedia.org/wiki/Primality_test) as you would need to rule out all the factors up to the root of the number. Conventional RSA algorithms use [AKS](https://en.wikipedia.org/wiki/AKS_primality_test) for smaller numbers and multiple rounds of [Miller–Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) for larger numbers. Though Miller-Rabin is adequate, we improve on the process by using [QFT](https://en.wikipedia.org/wiki/Quadratic_Frobenius_test), [Baillie-PSW](https://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test), ECM, or SIQS. ECM and SIQS is implemented at [Alpertron integer factorization calculator](https://www.alpertron.com.ar/ECM.HTM).
 
 ## Resources
 - https://nodejs.org/api/crypto.html#crypto_crypto_checkprime_candidate_options_callback
@@ -45,7 +45,10 @@ To test in browser, open `test/index.html` with any browser
 - https://github.com/suciluz/multithreaded-rsa-encryption
 - https://github.com/digitalbazaar/forge/blob/master/lib/rsa.js#L595-L643
 - https://github.com/digitalbazaar/forge/blob/master/lib/rsa.js#L710-L734
+- https://github.com/digitalbazaar/forge/blob/master/lib/rsa.js#L1149
 - https://github.com/digitalbazaar/forge/blob/master/lib/prime.worker.js#L58-L130
+- https://github.com/ipfs-shipyard/js-human-crypto-keys/blob/master/src/keys/rsa.js#L14-L36
+- https://github.com/rzcoder/node-rsa/blob/master/src/libs/rsa.js#L93
 - https://gist.github.com/krzkaczor/0bdba0ee9555659ae5fe
 - https://webassembly.github.io/JS-BigInt-integration/js-api/index.html
 - https://webassembly.github.io/spec/js-api/
@@ -69,3 +72,8 @@ To test in browser, open `test/index.html` with any browser
 - https://math.stackexchange.com/a/3839960/925321
 - https://docs.rs/num-bigint-dig/0.7.0/num_bigint_dig/trait.RandPrime.html
 - http://www-cs-students.stanford.edu/~tjw/jsbn/
+- https://www.alpertron.com.ar/ECM.HTM
+- https://coolaj86.com/articles/bigints-and-base64-in-javascript/
+- https://datatracker.ietf.org/doc/html/rfc7517#appendix-A.2
+- https://tools.ietf.org/id/draft-jones-json-web-key-01.html#rfc.section.5
+- https://self-issued.info/docs/draft-jones-jose-json-private-and-symmetric-key-00.html

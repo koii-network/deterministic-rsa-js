@@ -1,0 +1,15 @@
+{
+  "name": "deterministic-rsa-js",
+  "version": "0.1.0",
+  "description": "Deterministic RSA using vanilla JavaScript",
+  "main": "index.js",
+  "repository": "https://github.com/open-koi/deterministic-rsa-js.git",
+  "author": "Andre Vallestero",
+  "license": "MIT",
+  "dependencies": {
+    "workerpool": "^6.1.4"
+  },
+  "devDependencies": {
+    "bip39": "^3.0.4"
+  }
+}
