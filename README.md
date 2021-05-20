@@ -27,7 +27,7 @@ Preallocate buffers and variables to reduce garbage collection. We also take car
 
 ## Testing
 
-To test the node, run `node test`
+To test, run `node test`
 
 ## TODO
 
