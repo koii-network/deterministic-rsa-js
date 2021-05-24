@@ -1,4 +1,4 @@
-"use_strict";
+"use strict";
 
 const workerpool = require('workerpool');
 
@@ -286,8 +286,7 @@ function gcd(a, b) {
  * @returns {BigInt} d, Decryption exponent to be stored in private key
  */
 function modInverse(exp, phi) {
-  let q;
-  let v = phi;
+  let q, t1, t3;
   let u1 = 1n;
   let u3 = exp;
   let v1 = 0n;
@@ -304,7 +303,7 @@ function modInverse(exp, phi) {
     iter = -iter;
   }
   if (u3 != 1n) return 0n;
-  return iter > 0n ? u1 : v - u1;
+  return iter > 0n ? u1 : phi - u1;
 }
 
 /**
@@ -334,6 +333,6 @@ function biToB64url(num) {
 
 // https://coolaj86.com/articles/bigints-and-base64-in-javascript/
 if (typeof btoa === "undefined")
-  var btoa = (bin) => Buffer.from(bin, 'binary').toString('base64');
+  btoa = (bin) => Buffer.from(bin, 'binary').toString('base64');
 
 module.exports = { rsaGenKeys };

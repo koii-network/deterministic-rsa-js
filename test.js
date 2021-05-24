@@ -1,4 +1,4 @@
-"use_strict";
+"use strict";
 
 const bip39 = require("bip39");
 const detRsa = require("./index");
