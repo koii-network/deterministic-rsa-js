@@ -23,7 +23,7 @@ Use simple 32bit math and bitwise operators. Instead of generating entirely new 
 
 ### Optimized memory behavior
 
-Preallocate buffers and variables to reduce garbage collection. We also take care to only compare and assign values of the same type in order remove performance cost of type coercion and dynamic memory allocation.
+Preallocate buffers and variables to reduce garbage collection. We also take care to only compare and assign values of the same type in order remove the performance cost of type coercion and dynamic memory allocation.
 
 ## Testing
 
