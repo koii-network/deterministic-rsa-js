@@ -11,7 +11,7 @@ Available on [npm](https://www.npmjs.com/package/deterministic-rsa-js)
 
 ### Native BigInt, no byte array shims
 
-The original version of this project used Rust which took ~1.3s to generate a key natively, however when compiled to WASM, it took ~15 seconds. This is a because the WASM implementation used Uint8Array as a shim for large integers which is very slow in JavaScript. In the current implementation, we use JS native BigInts which handles arbitrarily-precise integers at a machine code level. This is where most of the speed up comes from.
+The original version of this project used Rust which took ~1.3s to generate a key natively, however when compiled to WASM, it took ~15 seconds. This is a because the WASM implementation used Uint8Array as a shim for large integers which is very slow in JavaScript. In the current implementation, we use JS native BigInts which handles arbitrarily-precise integers at a native level. This is where most of the speed up comes from.
 
 ### Multithreading
 
@@ -32,9 +32,9 @@ To test, run `node test`
 ## TODO
 
 - Add optimized prime checking implementation
-    - In a typical [prime generation algorithm](https://en.wikipedia.org/wiki/Generation_of_primes#Large_primes), prime checking dominates the runtime at more than 90%. This is because large numbers are inherently difficult to check for [primality](https://en.wikipedia.org/wiki/Primality_test) as you would need to rule out all the factors up to the root of the number. Conventional RSA algorithms use [AKS](https://en.wikipedia.org/wiki/AKS_primality_test) for smaller numbers and multiple rounds of [Miller–Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) for larger numbers. Though Miller-Rabin is adequate, we improve on the process by using [QFT](https://en.wikipedia.org/wiki/Quadratic_Frobenius_test), [Baillie-PSW](https://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test), ECM, or SIQS. ECM and SIQS is implemented at [Alpertron integer factorization calculator](https://www.alpertron.com.ar/ECM.HTM).
+    - In a typical [prime generation algorithm](https://en.wikipedia.org/wiki/Generation_of_primes#Large_primes), prime checking dominates the runtime at more than 90%. This is because large numbers are inherently difficult to check for [primality](https://en.wikipedia.org/wiki/Primality_test) as you would need to rule out all the factors up to the root of the number. Conventional RSA algorithms use [AKS](https://en.wikipedia.org/wiki/AKS_primality_test) for smaller numbers and multiple rounds of [Miller–Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) for larger numbers. Though Miller-Rabin is adequate, we could improve on the process by using [QFT](https://en.wikipedia.org/wiki/Quadratic_Frobenius_test), [Baillie-PSW](https://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test), ECM, or SIQS. ECM and SIQS is implemented at [Alpertron integer factorization calculator](https://www.alpertron.com.ar/ECM.HTM).
 - Add native Node crypto
-    - When running, we check if the node crypto module is available. If it is, we use [`crypto.checkPrime()`](https://nodejs.org/api/crypto.html#crypto_crypto_checkprime_candidate_options_callback) to leverage the native C++ prime checking. Otherwise, we fallback to our JavaScript solution.
+    - When running, we should check if the node crypto module is available. If it is, we use [`crypto.checkPrime()`](https://nodejs.org/api/crypto.html#crypto_crypto_checkprime_candidate_options_callback) to leverage the native C++ prime checking. Otherwise, we fallback to our JavaScript solution.
 
 ## Resources
 
